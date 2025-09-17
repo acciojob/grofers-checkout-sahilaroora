@@ -1,45 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Grofers Checkout</title>
   <style>
-    table, th, td {
-      border: 1px solid black;
-      border-collapse: collapse;
-      padding: 8px;
-    }
     table {
-      width: 300px;
+      border-collapse: collapse;
+      width: 50%;
+      margin-top: 20px;
     }
-    td {
-      text-align: center;
+    td, th {
+      border: 1px solid #000;
+      padding: 8px;
+      text-align: left;
     }
     .total-row {
+      background-color: #f2f2f2;
       font-weight: bold;
-      background-color: #f0f0f0;
     }
   </style>
 </head>
 <body>
 
   <h2>Grocery List</h2>
-  <table id="grocery-table">
-    <tr>
-      <th>Item</th>
-      <th>Price</th>
-    </tr>
-    <tr>
-      <td class="item">Apples</td>
+
+  <table id="groceryTable">
+    <tr class="item">
+      <td>Apples</td>
       <td class="prices">50</td>
     </tr>
-    <tr>
-      <td class="item">Bananas</td>
+    <tr class="item">
+      <td>Bananas</td>
       <td class="prices">30</td>
     </tr>
-    <tr>
-      <td class="item">Carrots</td>
-      <td class="prices">20</td>
+    <tr class="item">
+      <td>Oranges</td>
+      <td class="prices">40</td>
     </tr>
   </table>
 
@@ -47,26 +42,32 @@
     // Select all price elements with class "prices"
     const priceElements = document.querySelectorAll('.prices');
 
-    // Calculate the total sum of all prices
+    // Initialize total price
     let total = 0;
-    priceElements.forEach(priceEl => {
-      total += Number(priceEl.textContent);
+
+    // Loop through each price element and add its value to total
+    priceElements.forEach(elem => {
+      const price = parseFloat(elem.textContent);
+      if (!isNaN(price)) {
+        total += price;
+      }
     });
 
-    // Create a new row and cell for the total price
-    const table = document.getElementById('grocery-table');
-    const newRow = document.createElement('tr');
-    newRow.classList.add('total-row');
+    // Create a new table row
+    const totalRow = document.createElement('tr');
+    totalRow.classList.add('total-row');
 
+    // Create a new cell to hold the total price
     const totalCell = document.createElement('td');
     totalCell.colSpan = 2; // Span across both columns
     totalCell.textContent = `Total Price: ₹${total}`;
 
-    // Append the new cell to the row, and the row to the table
-    newRow.appendChild(totalCell);
-    table.appendChild(newRow);
+    // Append cell to row and row to table
+    totalRow.appendChild(totalCell);
+    document.getElementById('groceryTable').appendChild(totalRow);
   </script>
 
 </body>
 </html>
 
+</html>
